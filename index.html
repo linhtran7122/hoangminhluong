@@ -48,7 +48,9 @@ nav{position:sticky;top:0;z-index:50;background:rgba(241,238,230,0.85);backdrop-
 .nav-links a:hover::after{width:100%;}
 .lang-toggle{display:flex;border:1px solid var(--line);border-radius:3px;overflow:hidden;}
 .lang-toggle button{font-family:'Archivo',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.05em;padding:6px 11px;border:none;background:transparent;color:var(--ink-soft);cursor:pointer;transition:all .2s;}
+.lang-toggle .flag-icon{display:block;width:25px;height:17px;border-radius:2px;box-shadow:0 0 0 1px rgba(33,31,26,0.18);overflow:hidden;}
 .lang-toggle button.active{background:var(--ink);color:var(--paper);}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 
 /* HERO */
 header{padding:84px 0 64px;}
@@ -87,6 +89,8 @@ section{padding:72px 0;border-top:1px solid var(--line);}
 .about-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:52px;}
 .about-grid p{margin-bottom:17px;color:var(--ink-soft);}
 .about-grid p b{color:var(--ink);font-weight:600;}
+.about-grid a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line);transition:color .2s,border-color .2s;}
+.about-grid a:hover{color:var(--accent);border-color:var(--accent);}
 .facts{border-left:2px solid var(--accent);padding-left:24px;}
 .fact{margin-bottom:22px;}
 .fact .k{font-family:'Archivo',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:3px;}
@@ -192,7 +196,7 @@ footer .socials a:hover{color:var(--gold);}
 footer .foot-fine{color:rgba(244,239,228,0.4);}
 @media(max-width:860px){.portrait{max-width:280px;}}
 .portrait{background:#2a1212;}
-.portrait-img{width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block;}
+.portrait-img{width:100%;height:100%;object-fit:cover;object-position:58% 18%;display:block;}
 
 /* ===== motion / high-tech pass ===== */
 .scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));box-shadow:0 0 10px rgba(118,43,43,.4);z-index:200;transition:width .12s linear;}
@@ -251,7 +255,7 @@ html.js .portrait{animation:fadeScale 1.1s cubic-bezier(.22,1,.36,1) .30s both;}
 
 <nav>
   <div class="nav-inner">
-    <div class="monogram"><span data-i18n="nav.name">Hoang Minh Luong</span><span>.</span></div>
+    <div class="monogram"><span data-i18n="nav.name">Hoang Minh Luong</span></div>
     <div class="nav-right">
       <div class="nav-links">
         <a href="#about" data-i18n="nav.about">About</a>
@@ -261,8 +265,21 @@ html.js .portrait{animation:fadeScale 1.1s cubic-bezier(.22,1,.36,1) .30s both;}
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </div>
       <div class="lang-toggle">
-        <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
-        <button id="btn-vi" onclick="setLang('vi')">VI</button>
+        <button id="btn-en" class="active" onclick="setLang('en')" aria-label="English version" aria-pressed="true" title="English">
+          <svg class="flag-icon" aria-hidden="true" viewBox="0 0 60 40" focusable="false">
+            <rect width="60" height="40" fill="#012169"/>
+            <path d="M0 0 60 40M60 0 0 40" stroke="#fff" stroke-width="8"/>
+            <path d="M0 0 60 40M60 0 0 40" stroke="#C8102E" stroke-width="4"/>
+            <path d="M30 0v40M0 20h60" stroke="#fff" stroke-width="13"/>
+            <path d="M30 0v40M0 20h60" stroke="#C8102E" stroke-width="8"/>
+          </svg><span class="sr-only">English</span>
+        </button>
+        <button id="btn-vi" onclick="setLang('vi')" aria-label="Vietnamese version" aria-pressed="false" title="Vietnamese">
+          <svg class="flag-icon" aria-hidden="true" viewBox="0 0 60 40" focusable="false">
+            <rect width="60" height="40" fill="#DA251D"/>
+            <polygon points="30,7 33.7,16.2 43.6,16.2 35.6,22.1 38.6,31.5 30,25.8 21.4,31.5 24.4,22.1 16.4,16.2 26.3,16.2" fill="#FFFF00"/>
+          </svg><span class="sr-only">Vietnamese</span>
+        </button>
       </div>
     </div>
   </div>
@@ -313,17 +330,18 @@ html.js .portrait{animation:fadeScale 1.1s cubic-bezier(.22,1,.36,1) .30s both;}
     <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title" data-i18n="s.about">About</h2></div>
     <div class="about-grid">
       <div>
-        <p data-i18n="about.p1">Hoang Minh Luong is a materials scientist and aerospace engineer working at the frontier of composite safety. As a PhD candidate at the <b>University of Bath</b> — co-funded by <b>Dowty Propellers (GE Aerospace)</b> — he develops tolerance-aware design and defect-detection methods for next-generation carbon-fibre propeller blades. He is also a member of Bath's <b>Centre for Integrated Materials, Processes &amp; Structures (IMPS)</b>, linking advanced materials, manufacturing processes and structural integrity with industry-facing aerospace research.</p>
-        <p data-i18n="about.p2">His research reaches into national-scale science: leading synchrotron X-ray campaigns at the <b>Diamond Light Source</b> to see, at the microscale, how hidden defects redistribute stress inside composite structures. He turns those insights into multiscale simulations and ML-ready datasets that help engineers catch flaws long before they ever reach the sky. As a member of <b>CerTest</b> — a £6.9m EPSRC programme reshaping how composite aerostructures are certified — his findings feed straight into industry certification with Dowty Propellers (GE Aerospace).</p>
+        <p data-i18n="about.p1">Hoang Minh Luong is a materials scientist and aerospace engineer working at the frontier of composite safety. His research is novelty-driven and pioneering, opening new ways to understand defect tolerance, residual stress and structural integrity in aerospace composites. As a PhD candidate at the <b>University of Bath</b> — co-funded by <a href="https://www.geaerospace.com/company/businesses/dowty-propellers" target="_blank" rel="noopener noreferrer"><b>Dowty Propellers (GE Aerospace)</b></a> — he develops tolerance-aware design and defect-detection methods for next-generation carbon-fibre propeller blades. He is also a member of Bath's <a href="https://www.bath.ac.uk/research-centres/centre-for-integrated-materials-processes-structures/" target="_blank" rel="noopener noreferrer"><b>Centre for Integrated Materials, Processes &amp; Structures (IMPS)</b></a>, linking advanced materials, manufacturing processes and structural integrity with industry-facing aerospace research.</p>
+        <p data-i18n="about.p2">His research reaches into national-scale science: leading synchrotron X-ray campaigns at the <a href="https://www.diamond.ac.uk/" target="_blank" rel="noopener noreferrer"><b>Diamond Light Source</b></a> to see, at the microscale, how hidden defects redistribute stress inside composite structures. Across 2025–2026, he completed five funded projects at Diamond Light Source, representing approximately £450k in research funding and facility access. He turns those insights into multiscale simulations and ML-ready datasets that help engineers catch flaws long before they ever reach the sky. As a member of <a href="https://www.composites-certest.com/" target="_blank" rel="noopener noreferrer"><b>CerTest</b></a> — a £6.9m EPSRC programme reshaping how composite aerostructures are certified — his findings feed straight into industry certification with Dowty Propellers (GE Aerospace).</p>
         <p data-i18n="about.p3">From Airbus wing design to the Vietnam National Space Centre, from synchrotron beamlines to gold medals in national mathematics and physics — his path has been defined by one thing: solving hard engineering problems that genuinely matter.</p>
       </div>
       <div class="facts">
         <div class="fact"><span class="k" data-i18n="about.f1k">Field</span><span class="v" data-i18n="about.f1v">Composite Structures · NDE · Defect Detection</span></div>
-        <div class="fact"><span class="k" data-i18n="about.f2k">Institution</span><span class="v">University of Bath (2024–2028)</span></div>
-        <div class="fact"><span class="k" data-i18n="about.f5k">Research Centre</span><span class="v" data-i18n="about.f5v">IMPS · University of Bath</span></div>
-        <div class="fact"><span class="k" data-i18n="about.f3k">Industry Sponsor</span><span class="v">Dowty Propellers · GE Aerospace</span></div>
-        <div class="fact"><span class="k" data-i18n="about.f4k">Programme</span><span class="v">CerTest · EPSRC (£6.9m)</span></div>
-        <div class="fact"><span class="k">ORCID</span><span class="v">0009-0004-7457-6296</span></div>
+        <div class="fact"><span class="k" data-i18n="about.f2k">Institution</span><span class="v"><a href="https://www.bath.ac.uk/" target="_blank" rel="noopener noreferrer">University of Bath (2024–2028)</a></span></div>
+        <div class="fact"><span class="k" data-i18n="about.f5k">Research Centre</span><span class="v" data-i18n="about.f5v"><a href="https://www.bath.ac.uk/research-centres/centre-for-integrated-materials-processes-structures/" target="_blank" rel="noopener noreferrer">IMPS · University of Bath</a></span></div>
+        <div class="fact"><span class="k" data-i18n="about.f3k">Industry Sponsor</span><span class="v"><a href="https://www.geaerospace.com/company/businesses/dowty-propellers" target="_blank" rel="noopener noreferrer">Dowty Propellers · GE Aerospace</a></span></div>
+        <div class="fact"><span class="k" data-i18n="about.f4k">Programme</span><span class="v"><a href="https://www.composites-certest.com/" target="_blank" rel="noopener noreferrer">CerTest · EPSRC (£6.9m)</a></span></div>
+        <div class="fact"><span class="k">ORCID</span><span class="v"><a href="https://orcid.org/0009-0004-7457-6296" target="_blank" rel="noopener noreferrer">0009-0004-7457-6296</a></span></div>
+        <div class="fact"><span class="k">Google Scholar</span><span class="v"><a href="https://scholar.google.com/citations?user=PrjbUW4AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Research profile</a></span></div>
       </div>
     </div>
   </div>
@@ -383,7 +401,7 @@ html.js .portrait{animation:fadeScale 1.1s cubic-bezier(.22,1,.36,1) .30s both;}
     <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title" data-i18n="s.journey">Academic & Professional Journey</h2></div>
     <div class="timeline">
       <div class="tl-item"><div class="yr">2024 — 2028</div><h4 data-i18n="j1t">PhD, Mechanical Engineering</h4><div class="org">University of Bath</div><p data-i18n="j1d">Leading synchrotron and CT campaigns to characterise defects in carbon-fibre propeller blades — co-sponsored by Dowty Propellers (GE Aerospace).</p></div>
-      <div class="tl-item"><div class="yr" data-i18n="jt_yr">Current</div><h4 data-i18n="jt_t">Visiting Lecturer · Academic Collaborator</h4><div class="org">USTH — University of Science &amp; Technology of Hanoi (Vietnam France University)</div><p data-i18n="jt_d">Teaching AVDASI 1 — Fundamentals of Aerospace Engineering to Year 1–2 students (aircraft systems, propulsion, design); developing applied materials linking engines, aerodynamics and structures to real aerospace practice.</p></div>
+      <div class="tl-item"><div class="yr" data-i18n="jt_yr">Current</div><h4 data-i18n="jt_t">Visiting Lecturer · Academic Collaborator</h4><div class="org">USTH — University of Science &amp; Technology of Hanoi (Vietnam France University)</div><p data-i18n="jt_d">Teaching fundamentals of aerospace engineering to Year 1–2 students (aircraft systems, propulsion, design); developing applied materials linking engines, aerodynamics and structures to real aerospace practice.</p></div>
       <div class="tl-item"><div class="yr">2022 — 2023</div><h4 data-i18n="j2t">Researcher</h4><div class="org">University of Transport & Communications, Vietnam</div><p data-i18n="j2d">Built an autonomous UAV inspection platform with Jetson edge AI for crack detection in GPS-denied environments; published in the Journal of Information and Telecommunication.</p></div>
       <div class="tl-item"><div class="yr">2021 — 2022</div><h4 data-i18n="j3t">Research Assistant</h4><div class="org">University of Bristol</div><p data-i18n="j3d">Simulated autoclave curing in ABAQUS and trained CNN models to optimise composite manufacturing; presented at ICMAC 2022.</p></div>
       <div class="tl-item"><div class="yr">2018 — 2022</div><h4 data-i18n="j4t">MEng (Hons), Aerospace Engineering</h4><div class="org">University of Bristol</div><p data-i18n="j4d">Graduated with a Distinction in advanced composite manufacturing; awarded the competitive Think Big International Scholarship — one of only ten awardees.</p></div>
@@ -449,10 +467,10 @@ const VI = {
   "stat.1":"Tài trợ & truy cập cơ sở UKRI/STFC","stat.2":"Bài báo tác giả chính tiêu biểu","stat.3":"Thành viên chương trình EPSRC · £6.9m","stat.4":"Beamtime synchrotron tại Diamond Light Source",
   "fund.eyebrow":"Học bổng toàn phần — từ A-Level đến Tiến sĩ","fund.s1":"A-Levels","fund.s2":"Đại học & Thạc sĩ · MEng","fund.s3":"Tiến sĩ",
   "s.about":"Giới thiệu",
-  "about.p1":"Lương Minh Hoàng là nhà khoa học vật liệu và kỹ sư hàng không vũ trụ làm việc ở tuyến đầu của lĩnh vực an toàn vật liệu composite. Là nghiên cứu sinh tiến sĩ tại <b>Đại học Bath</b> — đồng tài trợ bởi <b>Dowty Propellers (GE Aerospace)</b> — anh phát triển các phương pháp thiết kế giúp cánh quạt vẫn an toàn khi có sai lệch trong chế tạo, đồng thời phát hiện khuyết tật cho cánh quạt sợi carbon thế hệ mới. Anh cũng là thành viên của <b>Centre for Integrated Materials, Processes &amp; Structures (IMPS)</b> tại Đại học Bath, kết nối nghiên cứu vật liệu tiên tiến, quy trình chế tạo và độ toàn vẹn kết cấu với các bài toán hàng không có ứng dụng công nghiệp.",
-  "about.p2":"Nghiên cứu của anh chạm tới tầm khoa học quốc gia: dẫn dắt các chiến dịch chụp X-quang synchrotron tại <b>Diamond Light Source</b> để quan sát, ở cấp độ vi mô, cách những khuyết tật ẩn làm phân bố lại ứng suất bên trong kết cấu composite. Anh biến những hiểu biết đó thành các mô phỏng đa tỉ lệ và bộ dữ liệu sẵn sàng cho machine learning, giúp kỹ sư phát hiện lỗi từ rất sớm — trước khi chúng kịp cất cánh. Là thành viên của <b>CerTest</b> — chương trình EPSRC trị giá 6,9 triệu bảng định hình lại cách chứng nhận kết cấu hàng không composite — kết quả nghiên cứu của anh được đưa thẳng vào quy trình chứng nhận cùng Dowty Propellers (GE Aerospace).",
+  "about.p1":"Lương Minh Hoàng là nhà khoa học vật liệu và kỹ sư hàng không vũ trụ làm việc ở tuyến đầu của lĩnh vực an toàn vật liệu composite. Các nghiên cứu của anh đều hướng tới tính mới và tính tiên phong, mở ra cách tiếp cận mới để hiểu khả năng chịu khuyết tật, ứng suất dư và độ toàn vẹn kết cấu trong vật liệu composite hàng không. Là nghiên cứu sinh tiến sĩ tại <b>Đại học Bath</b> — đồng tài trợ bởi <a href=\"https://www.geaerospace.com/company/businesses/dowty-propellers\" target=\"_blank\" rel=\"noopener noreferrer\"><b>Dowty Propellers (GE Aerospace)</b></a> — anh phát triển các phương pháp thiết kế giúp cánh quạt vẫn an toàn khi có sai lệch trong chế tạo, đồng thời phát hiện khuyết tật cho cánh quạt sợi carbon thế hệ mới. Anh cũng là thành viên của <a href=\"https://www.bath.ac.uk/research-centres/centre-for-integrated-materials-processes-structures/\" target=\"_blank\" rel=\"noopener noreferrer\"><b>Centre for Integrated Materials, Processes &amp; Structures (IMPS)</b></a> tại Đại học Bath, kết nối nghiên cứu vật liệu tiên tiến, quy trình chế tạo và độ toàn vẹn kết cấu với các bài toán hàng không có ứng dụng công nghiệp.",
+  "about.p2":"Nghiên cứu của anh chạm tới tầm khoa học quốc gia: dẫn dắt các chiến dịch chụp X-quang synchrotron tại <a href=\"https://www.diamond.ac.uk/\" target=\"_blank\" rel=\"noopener noreferrer\"><b>Diamond Light Source</b></a> để quan sát, ở cấp độ vi mô, cách những khuyết tật ẩn làm phân bố lại ứng suất bên trong kết cấu composite. Trong giai đoạn 2025–2026, anh đã hoàn thành 5 dự án được tài trợ tại Diamond Light Source, với tổng giá trị tài trợ nghiên cứu và truy cập cơ sở khoảng 450.000 bảng Anh. Anh biến những hiểu biết đó thành các mô phỏng đa tỉ lệ và bộ dữ liệu sẵn sàng cho machine learning, giúp kỹ sư phát hiện lỗi từ rất sớm — trước khi chúng kịp cất cánh. Là thành viên của <a href=\"https://www.composites-certest.com/\" target=\"_blank\" rel=\"noopener noreferrer\"><b>CerTest</b></a> — chương trình EPSRC trị giá 6,9 triệu bảng định hình lại cách chứng nhận kết cấu hàng không composite — kết quả nghiên cứu của anh được đưa thẳng vào quy trình chứng nhận cùng Dowty Propellers (GE Aerospace).",
   "about.p3":"Từ đội thiết kế cánh máy bay của Airbus tới Trung tâm Vũ trụ Việt Nam, từ các chùm tia synchrotron tới huy chương vàng Toán và Lý quốc gia — con đường của anh được định hình bởi một điều: giải những bài toán kỹ thuật khó và thực sự quan trọng.",
-  "about.f1k":"Lĩnh vực","about.f1v":"Kết cấu Composite · NDE · Phát hiện Khuyết tật","about.f2k":"Đơn vị","about.f3k":"Tài trợ Công nghiệp","about.f4k":"Chương trình","about.f5k":"Trung tâm nghiên cứu","about.f5v":"IMPS · Đại học Bath",
+  "about.f1k":"Lĩnh vực","about.f1v":"Kết cấu Composite · NDE · Phát hiện Khuyết tật","about.f2k":"Đơn vị","about.f3k":"Tài trợ Công nghiệp","about.f4k":"Chương trình","about.f5k":"Trung tâm nghiên cứu","about.f5v":"<a href=\"https://www.bath.ac.uk/research-centres/centre-for-integrated-materials-processes-structures/\" target=\"_blank\" rel=\"noopener noreferrer\">IMPS · Đại học Bath</a>",
   "s.research":"Hướng nghiên cứu",
   "r1t":"Đặc trưng hoá bằng Synchrotron","r1d":"Nhiễu xạ tia X và chụp cắt lớp vi tính tại Diamond Light Source, lập bản đồ biến dạng sợi và hư hại ẩn ở cấp độ vi mô.",
   "r2t":"Mô phỏng đa tỉ lệ","r2d":"Mô hình phần tử hữu hạn tích hợp ứng suất dư đo được, dự đoán cách khuyết tật phân bố lại tải trọng trong kết cấu.",
@@ -460,7 +478,7 @@ const VI = {
   "r4t":"Thiết kế chịu được khuyết tật","r4d":"Cùng kỹ sư công nghiệp chuyển hoá nghiên cứu thành tiêu chuẩn thiết kế và kiểm định, giữ các bộ phận hàng không vận hành an toàn.",
   "s.pubs":"Công bố tiêu biểu","pub.note":"Bài báo tác giả chính trên tạp chí Q1 — thuộc nhóm xếp hạng cao nhất trong lĩnh vực (impact factor ≈ 14).","pub.read":"Đọc bài →","pub.full":"Danh sách công bố đầy đủ trên ORCID →",
   "s.journey":"Hành trình học thuật & nghề nghiệp",
-  "j1t":"Tiến sĩ, Kỹ thuật Cơ khí","jt_yr":"Hiện tại","jt_t":"Giảng viên thỉnh giảng · Cộng tác viên học thuật","jt_d":"Giảng dạy AVDASI 1 — Nhập môn Kỹ thuật Hàng không cho sinh viên năm 1–2 (hệ thống máy bay, động cơ đẩy, thiết kế); xây dựng học liệu ứng dụng kết nối động cơ, khí động học và kết cấu với thực tiễn ngành hàng không.","j1d":"Dẫn dắt các chiến dịch synchrotron và CT để đặc trưng hoá khuyết tật trên cánh quạt sợi carbon — đồng tài trợ bởi Dowty Propellers (GE Aerospace).",
+  "j1t":"Tiến sĩ, Kỹ thuật Cơ khí","jt_yr":"Hiện tại","jt_t":"Giảng viên thỉnh giảng · Cộng tác viên học thuật","jt_d":"Giảng dạy nền tảng kỹ thuật hàng không cho sinh viên năm 1–2 (hệ thống máy bay, động cơ đẩy, thiết kế); xây dựng học liệu ứng dụng kết nối động cơ, khí động học và kết cấu với thực tiễn ngành hàng không.","j1d":"Dẫn dắt các chiến dịch synchrotron và CT để đặc trưng hoá khuyết tật trên cánh quạt sợi carbon — đồng tài trợ bởi Dowty Propellers (GE Aerospace).",
   "j2t":"Nghiên cứu viên","j2d":"Xây dựng nền tảng UAV kiểm định tự hành với edge AI (Jetson) để phát hiện vết nứt trong môi trường không có GPS; công bố trên Journal of Information and Telecommunication.",
   "j3t":"Trợ lý nghiên cứu","j3d":"Mô phỏng quá trình đóng rắn autoclave trong ABAQUS và huấn luyện mô hình CNN để tối ưu hoá sản xuất composite; trình bày tại ICMAC 2022.",
   "j4t":"Thạc sĩ Kỹ thuật (Hons), Hàng không Vũ trụ","j4d":"Tốt nghiệp loại Xuất sắc (Distinction) ở đồ án sản xuất composite tiên tiến; nhận học bổng quốc tế Think Big danh giá — 1 trong 10 người được trao.",
@@ -482,7 +500,7 @@ const VI = {
 const EN = new Map();
 document.querySelectorAll('[data-i18n]').forEach(el=>EN.set(el, el.innerHTML));
 
-function setLang(lang){
+window.setLang = function setLang(lang){
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     const k = el.getAttribute('data-i18n');
     if(lang==='vi' && VI[k]!==undefined) el.innerHTML = VI[k];
@@ -491,7 +509,9 @@ function setLang(lang){
   document.documentElement.lang = lang;
   document.getElementById('btn-en').classList.toggle('active', lang==='en');
   document.getElementById('btn-vi').classList.toggle('active', lang==='vi');
-}
+  document.getElementById('btn-en').setAttribute('aria-pressed', lang==='en');
+  document.getElementById('btn-vi').setAttribute('aria-pressed', lang==='vi');
+};
 
 const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}})},{threshold:0.1});
 document.querySelectorAll('.reveal:not(.in)').forEach(el=>obs.observe(el));
